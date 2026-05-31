@@ -121,7 +121,7 @@ export default function App() {
               </div>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'center'}}>
+            <div className="text-center mb-12">
               <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-cream-50 leading-tight mb-6" >
                 Credit Union,
                 <span className="text-gradient-gold"> Happy Family!</span>
@@ -179,7 +179,11 @@ export default function App() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="relative py-24 lg:py-32 bg-navy-800/50">
+      <section 
+      id="about" 
+      className="relative py-24 lg:py-32 bg-navy-800/50 inset-0 bg-bottom bg-no-repeat"
+      style={{ backgroundImage: 'url(/images/hands.png)' }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center mb-16">
@@ -220,7 +224,7 @@ export default function App() {
                 {[
                   { year: '1983', event: 'Our Union was established' },
                   { year: '1998', event: 'On October 14th, we were offially registered' },
-                  { year: '2024', event: 'Credit Union Associasion (CUA) association' },
+                  { year: '2024', event: 'Credit Union Associasion (CUA) affiliation' },
                 ].map((milestone, i) => (
                   <div key={i} className="flex items-start space-x-4">
                     <span className="font-serif text-lg font-bold text-gold-400 w-16">{milestone.year}</span>
@@ -275,7 +279,10 @@ export default function App() {
       
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-24 lg:py-32 bg-navy-800/50">
+      <section id="testimonials" 
+      className="relative py-24 lg:py-32 bg-navy-800/50 inset-0 bg-bottom bg-no-repeat"
+      style={{ backgroundImage: 'url(/images/hands.png)' }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center mb-16">
@@ -438,7 +445,10 @@ export default function App() {
       </section>
 
       {/* Location Section */}
-      <section id="location" className="py-24 lg:py-32 bg-navy-800/50">
+      <section id="location" 
+      className="relative py-24 lg:py-32 bg-navy-800/50 inset-0 bg-bottom bg-no-repeat"
+      style={{ backgroundImage: 'url(/images/hands.png)' }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center mb-16">
@@ -505,7 +515,7 @@ export default function App() {
               {/* Quick Actions */}
               <div className="grid sm:grid-cols-2 gap-4">
                 <a 
-                  href="https://maps.app.goo.gl/sSjV9ArGdd6E61FGA" 
+                  href="https://maps.app.goo.gl/DuFAqiLpTUTEDg539" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-gold px-6 py-4 rounded-xl font-semibold text-center flex items-center justify-center space-x-2"
@@ -571,25 +581,11 @@ export default function App() {
               </div>
             </div>
 
-            {/* Quick Links */}
-            <div>
-              <h4 className="font-serif text-lg font-semibold text-cream-50 mb-4">Quick Links</h4>
-              <ul className="space-y-3">
-                {['Personal Banking', 'Business Banking', 'Loans & Mortgages', 'Investments', 'Online Banking'].map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-cream-100/60 hover:text-gold-400 transition-colors">
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
             {/* Legal */}
-            <div>
+            <div className="text-right md:col-span-2">
               <h4 className="font-serif text-lg font-semibold text-cream-50 mb-4">Legal</h4>
               <ul className="space-y-3">
-                {['Privacy Policy', 'Terms of Service', 'Accessibility', 'Disclosures', 'Careers'].map((link) => (
+                {['Privacy Policy', 'Terms of Service'].map((link) => (
                   <li key={link}>
                     <a href="#" className="text-cream-100/60 hover:text-gold-400 transition-colors">
                       {link}
@@ -607,8 +603,8 @@ export default function App() {
             </p>
             <div className="flex items-center space-x-2">
               <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/National_Credit_Union_Administration_logo.svg/200px-National_Credit_Union_Administration_logo.svg.png" 
-                alt="NCUA Insured"
+                src="/cualogo.svg" 
+                alt="CUA Insured"
                 className="h-8 opacity-60"
               />
             </div>

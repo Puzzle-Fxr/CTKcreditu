@@ -4,18 +4,18 @@
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Inter', system-ui, sans-serif;
   
-  --color-navy-950: #020617;
+  --color-navy-950: #031D44;
   --color-navy-900: #0a192f;
-  --color-navy-800: #0f2744;
+  --color-navy-800: #006FD0;
   --color-navy-700: #1a365d;
-  --color-navy-600: #234876;
+  --color-navy-600: #04395E;
   
-  --color-gold-400: #D4AF37;
-  --color-gold-500: #C5A028;
-  --color-gold-600: #B8860B;
+  --color-gold-400: #D89F02;
+  --color-gold-500: #FDC427;
+  --color-gold-600: #FCBA04;
   
-  --color-cream-50: #FDFCF8;
-  --color-cream-100: #FAF8F0;
+  --color-cream-50: #E1F1FF;
+  --color-cream-100: #F2F9FF;
 }
 
 html {
@@ -33,14 +33,14 @@ body {
 }
 
 .text-gradient-gold {
-  background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 50%, #D4AF37 100%);
+  background: linear-gradient(135deg, #FCBA04 0%, #D89F02 50%, #FCBA04 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .bg-gradient-radial {
-  background: radial-gradient(ellipse at top, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
+  background: radial-gradient(ellipse at top, rgba(252, 186, 4, 0.08) 0%, transparent 50%);
 }
 
 .hero-overlay {
@@ -50,35 +50,35 @@ body {
 .card-glass {
   background: rgba(15, 39, 68, 0.6);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(252, 186, 4, 0.15);
 }
 
 .btn-gold {
-  background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+  background: linear-gradient(135deg, #FCBA04 0%, #D89F02 50%, #FCBA04 100%);
   color: #0a192f;
   transition: all 0.3s ease;
 }
 
 .btn-gold:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 40px rgba(252, 186, 4, 0.3);
 }
 
 .btn-outline-gold {
-  border: 2px solid #D4AF37;
-  color: #D4AF37;
+  border: 2px solid #FCBA04;
+  color: #FCBA04;
   transition: all 0.3s ease;
 }
 
 .btn-outline-gold:hover {
-  background: rgba(212, 175, 55, 0.1);
+  background: rgba(252, 186, 4, 0.1);
   transform: translateY(-2px);
 }
 
 .decorative-line {
   width: 80px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+  background: linear-gradient(90deg, transparent, #D89F02, transparent);
 }
 
 @keyframes float {
