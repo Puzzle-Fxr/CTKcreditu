@@ -315,7 +315,7 @@ export default function App() {
               {
                 image: '/images/testimonial-3.jpg',
                 name: 'Jessica Williams',
-                role: 'Marketing Director',
+                role: 'Freelance Graphic Designer',
                 quote: 'What I really love is that I can walk into a branch and be greeted by name. CTK credit Union combines modern convenience with old-fashioned personal service.',
               },
             ].map((testimonial, i) => (
