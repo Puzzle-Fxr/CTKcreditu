@@ -1,30 +1,232 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect , useRef } from 'react';
 import { 
-  Menu, X, Phone, Mail, MapPin, Clock, ChevronRight, 
+  Menu, X, Phone, Mail, MapPin, Clock, ChevronRight, ChevronLeft,
   Building2, Users, Shield, TrendingUp, Award, Heart,
   Linkedin, Twitter, Facebook, BanknoteArrowUp, 
   BanknoteArrowDown, Handshake, HandCoins 
 } from 'lucide-react';
 
+
+// 1. Define the TypeScript Interface for the Executives
+interface Executive {
+  image: string;
+  name: string;
+  title: string;
+  bio: string;
+}
+
+export const ExecutiveCarousel: React.FC = () => {
+  const carouselRef = useRef<HTMLDivElement>(null);
+  
+  // Dragging and Autoplay states
+  const [isDragging, setIsDragging] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  const executives: Executive[] = [
+    {
+      image: '/images/executive-4.jpg',
+      name: 'Mrs Nancy Tomani',
+      title: 'Board Chairperson',
+      bio: 'Extensive experience in credit union governance and community leadership.',
+    },
+    {
+      image: '/images/executive-3.jpg',
+      name: 'Mr. Hipolaitus Etse Equagoo',
+      title: 'Vice Chairperson',
+      bio: 'Formal expertise in multiple financial domains.',
+    },
+    {
+      image: '/images/executive-3.jpg',
+      name: 'Mr Charles Owusu',
+      title: 'Treasurer',
+      bio: 'Years in financial management.',
+    },
+    {
+      image: '/images/executive-1.jpg',
+      name: 'Mr. Michael Owusu',
+      title: 'Secretary',
+      bio: 'Passionate and dedicated leader.',
+    },
+    {
+      image: '/images/executive-2.jpg',
+      name: 'Mrs. Clare Naanibo',
+      title: 'General Manager',
+      bio: 'Passionate about member service.',
+    },
+    {
+      image: '/images/executive-1.jpg',
+      name: 'Mr. William Paul Ayitey',
+      title: 'Marketing Personnel',
+      bio: 'Led digital transformation initiatives.',
+    },
+  ];
+
+  // Button & Auto-Scroll Navigation Logic
+  const scroll = (direction: 'left' | 'right') => {
+    if (carouselRef.current) {
+      const cardElement = carouselRef.current.firstElementChild as HTMLElement;
+      if (cardElement) {
+        const cardWidth = cardElement.getBoundingClientRect().width;
+        const gap = 32; // Matches gap-8 (32px)
+        const scrollAmount = cardWidth + gap;
+
+        carouselRef.current.scrollBy({
+          left: direction === 'left' ? -scrollAmount : scrollAmount,
+          behavior: 'smooth',
+        });
+      }
+    }
+  };
+
+  // Autoplay Effect (Runs when not dragging or hovering)
+  useEffect(() => {
+    if (isDragging || isHovered) return;
+
+    const interval = setInterval(() => {
+      if (carouselRef.current) {
+        const { scrollLeft: currentScroll, scrollWidth, clientWidth } = carouselRef.current;
+        
+        // Check if we are at the end of the scroll width (with a minor 10px threshold)
+        const isAtEnd = currentScroll + clientWidth >= scrollWidth - 10;
+
+        if (isAtEnd) {
+          // Smoothly loop back to the beginning
+          carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          scroll('right');
+        }
+      }
+    }, 4000); // Adjust interval duration here (4000ms = 4 seconds)
+
+    return () => clearInterval(interval);
+  }, [isDragging, isHovered]);
+
+  // Drag-to-Scroll Mouse Event Handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!carouselRef.current) return;
+    setIsDragging(true);
+    startX.current = e.pageX - carouselRef.current.offsetLeft;
+    scrollLeft.current = carouselRef.current.scrollLeft;
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+    setIsHovered(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !carouselRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - carouselRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    carouselRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
+  return (
+    <div 
+      className="relative w-full group/carousel"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Navigation Buttons */}
+      <div className="absolute -top-16 right-0 flex items-center gap-3 z-10">
+        <button
+          onClick={() => scroll('left')}
+          className="w-10 h-10 rounded-full border border-cream-100/20 bg-navy-900/40 text-cream-50 flex items-center justify-center hover:bg-gold-400 hover:text-navy-900 transition-colors duration-300"
+          aria-label="Scroll left"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={() => scroll('right')}
+          className="w-10 h-10 rounded-full border border-cream-100/20 bg-navy-900/40 text-cream-50 flex items-center justify-center hover:bg-gold-400 hover:text-navy-900 transition-colors duration-300"
+          aria-label="Scroll right"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Carousel Container */}
+      <div
+        ref={carouselRef}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        className={`flex gap-8 overflow-x-auto pb-4 no-scrollbar select-none
+          ${isDragging 
+            ? 'snap-none scroll-auto cursor-grabbing' 
+            : 'snap-x snap-mandatory scroll-smooth cursor-grab'
+          }`}
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        {executives.map((exec, i) => (
+          <div
+            key={i}
+            className="w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.333%-21.333px)] shrink-0 snap-start group rounded-2xl bg-navy-800/50 backdrop-blur-sm p-6 cursor-pointer hover:bg-navy-800/70 transition-colors duration-300"
+          >
+            <div className="relative overflow-hidden rounded-2xl mb-4 pointer-events-none">
+              <img
+                src={exec.image}
+                alt={exec.name}
+                draggable={false}
+                className="w-full aspect-[3/4] object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-transparent to-transparent opacity-80 " />
+            </div>
+
+            <h4 className="font-serif text-xl font-semibold text-cream-50">{exec.name}</h4>
+            <p className="text-gold-400 font-medium text-sm mb-2">{exec.title}</p>
+            <p className="text-cream-100/60 text-sm line-clamp-3">{exec.bio}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+const heroImages: string[] = [
+  '/images/hero-bank.jpg',
+  '/images/hero-bank-2.jpg',
+  '/images/hero-bank-3.jpg',
+  '/images/hero-bank-4.jpg',
+];
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
+
+const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+
+useEffect(() => {
+  const intervalId = setInterval(() => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+  }, 5000); // Changes image every 5 seconds
+
+  return () => clearInterval(intervalId);
+}, []);
+
+useEffect(() => {
+  const handleScroll = () => {
+    setScrolled(window.scrollY > 50);
   };
+  window.addEventListener('scroll', handleScroll);
+  return () => window.removeEventListener('scroll', handleScroll);
+}, []);
+
+const scrollToSection = (id: string) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+  setIsMenuOpen(false);
+};
 
   return (
     <div className="min-h-screen bg-navy-900">
@@ -36,10 +238,10 @@ export default function App() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-               <img src="/images/creditunionlogo.png" alt="Company Logo" style={{ width: '80px' }} />
+               <img src="/images/creditunionlogo.png" alt="Company Logo" style={{ width: '70px' }} />
               <div>
                 <h1 className="font-serif text-xl font-semibold text-cream-50">Accra Christ The King</h1>
-                <p className="text-xs text-gold-400 tracking-widest uppercase">Cooperative Credit Union</p>
+                <p className="text-xs font-bold text-gold-600 tracking-widest uppercase">Cooperative Credit Union</p>
               </div>
             </div>
 
@@ -99,14 +301,21 @@ export default function App() {
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/hero-bank.jpg)' }}
-        />
+        <div className="absolute inset-0 overflow-hidden">
+          {heroImages.map((image, index) => (
+            <div
+              key={image}
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out"
+              style={{
+                backgroundImage: `url(${image})`,
+                opacity: index === currentImageIndex ? 1 : 0,
+                zIndex: index === currentImageIndex ? 1 : 0,
+              }}
+            />
+          ))}
+        </div>
         
-        {/* Overlay */}
-        <div className="absolute inset-0 hero-overlay" />
-        
+      
         {/* Decorative Elements */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-gold-400/10 rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-gold-400/5 rounded-full blur-3xl" />
@@ -365,82 +574,14 @@ export default function App() {
               Meet Our Executive Team
             </h2>
             <div className="decorative-line mx-auto" />
-            <p className="text-cream-100/70 mt-6 max-w-2xl mx-auto">
+            <p className="text-cream-100/70 mt-6 max-w-2xl mx-auto pb-10 leading-relaxed">
               Our leadership team brings a combined experience in banking, 
               finance, and community service to guide Accra Christ the King Credit Union into the future.
             </p>
           </div>
 
           {/* Executive Cards */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                image: '/images/executive-4.jpg',
-                name: 'Mrs Nancy Tomani',
-                title: 'Board Chairperson',
-                bio: 'Extensive experience in credit union governance and community leadership.',
-                linkedin: '#',
-              },
-              {
-                image: '/images/executive-3.jpg',
-                name: 'Mr. Hipolaitus Etse Equagoo',
-                title: 'Vice Chairperson',
-                bio: 'Formal expertise in multiple financial domains.',
-                linkedin: '#',
-              },
-              {
-                image: '/images/executive-3.jpg',
-                name: 'Mr Charles Owusu',
-                title: 'Treasurer',
-                bio: 'Years in financial management.',
-                linkedin: '#',
-              },
-              {
-                image: '/images/executive-1.jpg',
-                name: 'Mr. Michael Owusu',
-                title: 'Secretary',
-                bio: 'Passionate and dedicated leader.',
-                linkedin: '#',
-              },
-              {
-                image: '/images/executive-2.jpg',
-                name: 'Mrs. Clare Naanibo',
-                title: 'General Manager',
-                bio: 'Passionate about member service.',
-                linkedin: '#',
-              },
-              {
-                image: '/images/executive-1.jpg',
-                name: 'Mr. William Paul Ayitey',
-                title: 'Marketing Personnel',
-                bio: 'Led digital transformation initiatives.',
-                linkedin: '#',
-              },
-            ].map((exec, i) => (
-              <div key={i} className="group">
-                <div className="relative overflow-hidden rounded-2xl mb-4">
-                  <img 
-                    src={exec.image} 
-                    alt={exec.name}
-                    className="w-full aspect-[3/4] object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-transparent to-transparent opacity-80" />
-                  
-                  {/* Social Link */}
-                  <a 
-                    href={exec.linkedin}
-                    className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-gold-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    <Linkedin className="w-5 h-5 text-navy-900" />
-                  </a>
-                </div>
-                
-                <h4 className="font-serif text-xl font-semibold text-cream-50">{exec.name}</h4>
-                <p className="text-gold-400 font-medium text-sm mb-2">{exec.title}</p>
-                <p className="text-cream-100/60 text-sm">{exec.bio}</p>
-              </div>
-            ))}
-          </div>
+          <ExecutiveCarousel />
         </div>
       </section>
 

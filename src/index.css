@@ -16,6 +16,10 @@
   
   --color-cream-50: #E1F1FF;
   --color-cream-100: #F2F9FF;
+
+  --color-red-500: #B00000;
+  --color-red-600: #990000;
+  --color-red-700: #800000;
 }
 
 html {
