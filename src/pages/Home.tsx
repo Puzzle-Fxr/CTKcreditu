@@ -7,6 +7,7 @@ import {
   BanknoteArrowDown, Handshake, HandCoins 
 } from 'lucide-react';
 
+{/* TypeScript Interfaces */}
 // TypeScript Interface for Executives
 interface Executive {
   image: string;
@@ -170,12 +171,81 @@ export const ExecutiveCarousel: React.FC = () => {
             </div>
 
             <h4 className="font-serif text-xl font-semibold text-cream-50">{exec.name}</h4>
-            <p className="text-gold-400 font-medium text-sm mb-2">{exec.title}</p>
+            <p className="text-gold-400 font-medium text-xl mb-2">{exec.title}</p>
             <p className="text-cream-100/60 text-sm line-clamp-3">{exec.bio}</p>
           </div>
         ))}
       </div>
     </div>
+  );
+};
+
+// Announcement Banner Component
+export const AnnouncementBanner: React.FC = () => {
+  const announcements = [
+    "🎉 Welcome to Accra Christ The King Credit Union - Your Financial Home!",
+    "📢 We are Launching our New Website!",
+    "💰 Fast loan approval for members - Visit Us Today!",
+    "💰 Competitive Rates - Visit Us Today!",
+    "🏆 Celebrating 40+ years of trusted service to our community!",
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % announcements.length);
+    }, 8000); // Change announcement every 8 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const styles = `
+    @keyframes slideInLeft {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideOutLeft {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+    }
+
+    .banner-text {
+      animation: slideInLeft 0.8s ease-out;
+    }
+
+    .banner-text.exiting {
+      animation: slideOutLeft 0.8s ease-in;
+    }
+  `;
+
+  return (
+    <>
+      <style>{styles}</style>
+      <div className="fixed top-0 left-0 right-0 z-40 bg-gradient-to-r from-gold-400 to-gold-500 text-navy-900 py-2 px-4 overflow-hidden">
+        <div className="flex items-center justify-center h-8">
+          <div 
+            key={currentIndex}
+            className="banner-text font-semibold text-sm md:text-base text-center max-w-4xl"
+          >
+            {announcements[currentIndex]}
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
@@ -217,12 +287,18 @@ export default function Home() {
     setIsMenuOpen(false);
   };
 
+
+{/* Main Home Component JSX */}
   return (
-    <div className="min-h-screen bg-navy-900">
-      {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-navy-900/95 backdrop-blur-lg shadow-lg' : 'bg-transparent'
-      }`}>
+    <>
+      {/* Announcement Banner - Fixed at top */}
+      <AnnouncementBanner />
+      
+      <div className="min-h-screen bg-navy-900 pt-16">
+        {/* Navigation */}
+        <nav className={`fixed top-10 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled ? 'bg-navy-900/95 backdrop-blur-lg shadow-lg' : 'bg-transparent'
+        }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center space-x-3">
@@ -306,8 +382,8 @@ export default function Home() {
           <div className="max-w-4xl">
             <div style={{ display: 'flex', justifyContent: 'center'}}>
               <div className="inline-flex items-center space-x-2 bg-navy-800/60 backdrop-blur-sm px-4 py-2 rounded-full border border-gold-400/30 mb-8">
-                <Award className="w-4 h-4 text-gold-400" />
-                <span className="text-sm text-gold-400 font-medium">Trusted Since 1983</span>
+                <Award className="w-4 h-4 text-gold-600" />
+                <span className="text-sm text-gold-600 font-medium">Trusted Since 1983</span>
               </div>
             </div>
 
@@ -319,8 +395,8 @@ export default function Home() {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center'}}>
-              <p className="text-xl text-cream-100/80 max-w-2xl mb-10 leading-relaxed" style={{ textAlign: 'center' }}>
-                Accra Christ The King Cooperative Credit Union is a member-focused financial 
+              <p className="text-2xl text-cream-100 max-w-2xl mb-10 leading-relaxed" style={{ textAlign: 'center' }}>
+                The Accra Christ The King Cooperative Credit Union is a member-focused financial 
                 cooperative dedicated to promoting a strong savings culture and providing 
                 accessible loan facilities to its members to support their financial growth 
                 and future security.
@@ -351,18 +427,18 @@ export default function Home() {
                 { value: '4.8★', label: 'Member Rating' },
               ].map((stat, i) => (
                 <div key={i}>
-                  <p className="font-serif text-3xl sm:text-4xl font-bold text-gold-400">{stat.value}</p>
+                  <p className="font-serif text-3xl sm:text-4xl font-bold text-gold-600">{stat.value}</p>
                   <p className="text-cream-100/60 text-sm mt-1">{stat.label}</p>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-        
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-gold-400/50 rounded-full flex justify-center pt-2">
-            <div className="w-1 h-2 bg-gold-400 rounded-full" />
+          {/* Scroll Down Indicator */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-gold-600 rounded-full flex justify-center pt-2">
+            <div className="w-1 h-2 bg-gold-600 rounded-full" />
           </div>
+        </div>
         </div>
       </section>
 
@@ -483,13 +559,13 @@ export default function Home() {
             {[
               {
                 image: '/images/testimonial-1.jpg',
-                name: 'Marcus Thompson',
+                name: 'Kofi Mensah',
                 role: 'Small Business Owner',
                 quote: 'When other banks turned me down for a business loan, CTK credit Union took the time to understand my vision. They didn\'t just see numbers—they saw potential. My restaurant is now thriving.',
               },
               {
                 image: '/images/testimonial-2.jpg',
-                name: 'Robert & Linda Chen',
+                name: 'Robert & Linda Ofori',
                 role: 'Retired Educators',
                 quote: 'We\'ve been members for 10 years. CTK credit Union helped us buy our first home, put our kids through college, and now they\'re helping us enjoy a comfortable retirement.',
               },
@@ -688,13 +764,15 @@ export default function Home() {
             <div className="text-right md:col-span-2">
               <h4 className="font-serif text-lg font-semibold text-cream-50 mb-4">Legal</h4>
               <ul className="space-y-3">
-                {['Privacy Policy', 'Terms of Service'].map((link) => (
-                  <li key={link}>
+                {[ { name: 'Privacy Policy', path: '/terms-of-service' },
+                    { name: 'Terms of Service', path: '/terms-of-service' }
+                  ].map((link) => (
+                  <li key={link.name}>
                     <button 
-                      onClick={() => link === 'Terms of Service' ? navigate('/terms-of-service') : null}
-                      className={`hover:text-gold-400 transition-colors ${link === 'Terms of Service' ? 'text-cream-100/60 cursor-pointer' : 'text-cream-100/60'}`}
+                      onClick={() => navigate(link.path)}
+                      className="hover:text-gold-400 transition-colors text-cream-100/60 cursor-pointer"
                     >
-                      {link}
+                      {link.name}
                     </button>
                   </li>
                 ))}
@@ -717,5 +795,6 @@ export default function Home() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
