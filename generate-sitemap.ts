@@ -10,11 +10,12 @@ const routes: string[] = [
   '/terms-of-service'
 ];
 
-// Get today's date in YYYY-MM-DD format
-const today: string = new Date().toISOString().split('T')[0];
+// Get today's date in YYYY-MM-DD format safely
+const today: string = new Date().toISOString().substring(0, 10);
 
-// 1. Build the Sitemap XML using pure template literals
+// Map over the routes array to build out your XML nodes dynamically
 const sitemapRows: string[] = routes.map((route: string) => {
+  // Ensure the root path doesn't get a trailing slash, but subpages keep theirs
   const url: string = `${BASE_URL}${route === '/' ? '' : route}`;
   const priority: string = route === '/' ? '1.0' : '0.8';
 
@@ -26,8 +27,9 @@ const sitemapRows: string[] = routes.map((route: string) => {
   </url>`;
 });
 
+// Construct the complete clean XML document
 const xml: string = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://sitemaps.org">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sitemapRows.join('\n')}
 </urlset>`;
 
@@ -40,16 +42,16 @@ if (!fs.existsSync(outDir)) {
 
 // Write the sitemap file
 fs.writeFileSync(path.join(outDir, 'sitemap.xml'), xml.trim());
-console.log('✅ sitemap.xml successfully generated in /dist using TypeScript!');
+console.log('✅ sitemap.xml successfully generated with the correct schema and paths!');
 
-// 2. Build and write the robots.txt file
+// Build and write the optimized robots.txt file
 const robotsContent: string = [
   'User-agent: *',
   'Allow: /',
   '',
-  `Host: ${BASE_URL}`,
   `Sitemap: ${BASE_URL}/sitemap.xml`
 ].join('\n');
 
 fs.writeFileSync(path.join(outDir, 'robots.txt'), robotsContent);
 console.log('✅ robots.txt successfully generated in /dist!');
+
