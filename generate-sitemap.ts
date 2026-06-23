@@ -12,10 +12,10 @@ const routes: string[] = [
   '/terms-of-service'
 ];
 
-// Build the XML structure
+// Build the XML structure with the exact required namespace attribute
 const root = create({ version: '1.0', encoding: 'UTF-8' })
   .ele('urlset')
-  .att('xmlns', 'http://sitemaps.org'); // Explicitly sets the proper schema
+  .att('xmlns', 'http://sitemaps.org'); // This adds the missing namespace
 
 routes.forEach((route: string) => {
   root.ele('url')
@@ -23,6 +23,7 @@ routes.forEach((route: string) => {
     .ele('changefreq').txt('monthly').up()
     .ele('priority').txt(route === '/' ? '1.0' : '0.8').up();
 });
+
 
 const xml: string = root.end({ prettyPrint: true });
 
