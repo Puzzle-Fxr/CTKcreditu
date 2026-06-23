@@ -1,8 +1,6 @@
 /// <reference types="node" />
 import * as fs from 'fs';
 import * as path from 'path';
-import { create } from 'xmlbuilder2'; 
-
 
 const BASE_URL: string = 'https://accractkcu.co';
 
@@ -12,20 +10,26 @@ const routes: string[] = [
   '/terms-of-service'
 ];
 
-// Build the XML structure with the exact required namespace attribute
-const root = create({ version: '1.0', encoding: 'UTF-8' })
-  .ele('urlset')
-  .att('xmlns', 'http://sitemaps.org'); // This adds the missing namespace
+// Get today's date in YYYY-MM-DD format
+const today: string = new Date().toISOString().split('T')[0];
 
-routes.forEach((route: string) => {
-  root.ele('url')
-    .ele('loc').txt(`${BASE_URL}${route}`).up()
-    .ele('changefreq').txt('monthly').up()
-    .ele('priority').txt(route === '/' ? '1.0' : '0.8').up();
+// 1. Build the Sitemap XML using pure template literals
+const sitemapRows: string[] = routes.map((route: string) => {
+  const url: string = `${BASE_URL}${route === '/' ? '' : route}`;
+  const priority: string = route === '/' ? '1.0' : '0.8';
+
+  return `  <url>
+    <loc>${url}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>${priority}</priority>
+  </url>`;
 });
 
-
-const xml: string = root.end({ prettyPrint: true });
+const xml: string = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://sitemaps.org">
+${sitemapRows.join('\n')}
+</urlset>`;
 
 // Safely write directly to Vite's build directory
 const outDir: string = path.resolve(process.cwd(), 'dist');
@@ -35,10 +39,10 @@ if (!fs.existsSync(outDir)) {
 }
 
 // Write the sitemap file
-fs.writeFileSync(path.join(outDir, 'sitemap.xml'), xml);
+fs.writeFileSync(path.join(outDir, 'sitemap.xml'), xml.trim());
 console.log('✅ sitemap.xml successfully generated in /dist using TypeScript!');
 
-// Build and write the robots.txt file
+// 2. Build and write the robots.txt file
 const robotsContent: string = [
   'User-agent: *',
   'Allow: /',
