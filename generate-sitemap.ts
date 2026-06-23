@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import * as fs from 'fs';
 import * as path from 'path';
 import { create } from 'xmlbuilder2'; 
@@ -13,7 +14,8 @@ const routes: string[] = [
 
 // Build the XML structure
 const root = create({ version: '1.0', encoding: 'UTF-8' })
-  .ele('urlset', { xmlns: 'http://sitemaps.org' });
+  .ele('urlset')
+  .att('xmlns', 'http://sitemaps.org'); // Explicitly sets the proper schema
 
 routes.forEach((route: string) => {
   root.ele('url')
