@@ -25,7 +25,7 @@ export const ExecutiveCarousel: React.FC = () => {
 
   const executives: Executive[] = [
     {
-      image: '/images/executive-4.jpg',
+      image: '/images/executive-1.jpg',
       name: 'Mrs Nancy Tomani',
       title: 'Board Chairperson',
       bio: 'Extensive experience in credit union governance and community leadership.',
@@ -43,19 +43,19 @@ export const ExecutiveCarousel: React.FC = () => {
       bio: 'Years in financial management.',
     },
     {
-      image: '/images/executive-1.jpg',
+      image: '/images/executive-3.jpg',
       name: 'Mr. Michael Owusu',
       title: 'Secretary',
       bio: 'Passionate and dedicated leader.',
     },
     {
-      image: '/images/executive-2.jpg',
+      image: '/images/executive-1.jpg',
       name: 'Mrs. Clare Naanibo',
       title: 'General Manager',
       bio: 'Passionate about member service.',
     },
     {
-      image: '/images/executive-1.jpg',
+      image: '/images/executive-3.jpg',
       name: 'Mr. William Paul Ayitey',
       title: 'Marketing Personnel',
       bio: 'Led digital transformation initiatives.',
@@ -91,7 +91,7 @@ export const ExecutiveCarousel: React.FC = () => {
           scroll('right');
         }
       }
-    }, 4000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [isDragging, isHovered]);
@@ -129,14 +129,14 @@ export const ExecutiveCarousel: React.FC = () => {
       <div className="absolute -top-16 right-0 flex items-center gap-3 z-10">
         <button
           onClick={() => scroll('left')}
-          className="w-10 h-10 rounded-full border border-cream-100/20 bg-navy-900/40 text-cream-50 flex items-center justify-center hover:bg-gold-400 hover:text-navy-900 transition-colors duration-300"
+          className="w-15 h-15 rounded-full border border-cream-100/20 bg-navy-900/40 text-cream-50 flex items-center justify-center hover:bg-gold-400 hover:text-navy-900 transition-colors duration-300"
           aria-label="Scroll left"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={() => scroll('right')}
-          className="w-10 h-10 rounded-full border border-cream-100/20 bg-navy-900/40 text-cream-50 flex items-center justify-center hover:bg-gold-400 hover:text-navy-900 transition-colors duration-300"
+          className="w-15 h-15 rounded-full border border-cream-100/20 bg-navy-900/40 text-cream-50 flex items-center justify-center hover:bg-gold-400 hover:text-navy-900 transition-colors duration-300"
           aria-label="Scroll right"
         >
           <ChevronRight className="w-5 h-5" />
@@ -236,7 +236,7 @@ export const AnnouncementBanner: React.FC = () => {
     <>
       <style>{styles}</style>
       <div className="fixed top-0 left-0 right-0 z-40 bg-gradient-to-r from-gold-400 to-gold-500 text-navy-900 py-2 px-4 overflow-hidden">
-        <div className="flex items-center justify-center h-8">
+        <div className="flex items-center justify-center h-4">
           <div 
             key={currentIndex}
             className="banner-text font-semibold text-sm md:text-base text-center max-w-4xl"
@@ -294,9 +294,9 @@ export default function Home() {
       {/* Announcement Banner - Fixed at top */}
       <AnnouncementBanner />
       
-      <div className="min-h-screen bg-navy-900 pt-16">
+      <div className="min-h-screen bg-navy-900 pt-10">
         {/* Navigation */}
-        <nav className={`fixed top-10 left-0 right-0 z-50 transition-all duration-300 ${
+        <nav className={`fixed top-7 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled ? 'bg-navy-900/95 backdrop-blur-lg shadow-lg' : 'bg-transparent'
         }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -387,20 +387,20 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="text-center mb-12">
+            <div className="card-glass rounded-2xl px-6 py-3 text-center mb-12">
               <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-cream-50 leading-tight mb-6">
                 Credit Union,
                 <span className="text-gradient-gold"> Happy Family!</span>
               </h1>
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'center'}}>
-              <p className="text-2xl text-cream-100 max-w-2xl mb-10 leading-relaxed" style={{ textAlign: 'center' }}>
-                The Accra Christ The King Cooperative Credit Union is a member-focused financial 
-                cooperative dedicated to promoting a strong savings culture and providing 
-                accessible loan facilities to its members to support their financial growth 
-                and future security.
-              </p>
+                     
+              <div style={{ display: 'flex', justifyContent: 'center'}}>
+                <p className="text-2xl text-cream-100/60 max-w-2xl mb-10 leading-relaxed" style={{ textAlign: 'center' }}>
+                  The Accra Christ The King Cooperative Credit Union is a member-focused financial 
+                  cooperative dedicated to promoting a strong savings culture and providing 
+                  accessible loan facilities to its members to support their financial growth 
+                  and future security.
+                </p>
+              </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4" style={{ justifyContent: 'center' }}>
@@ -419,7 +419,7 @@ export default function Home() {
               </button>
             </div>
             
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mt-16 pt-16 border-t border-gold-400/20">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mt-16 pt-16 border-t border-gold-400">
               {[
                 { value: '40+', label: 'Years of Service' },
                 { value: '₵1.5M', label: 'Assets Managed' },
