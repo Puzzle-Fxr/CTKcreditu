@@ -15,7 +15,7 @@
     "framer-motion": "^12.35.0",
     "lucide-react": "^0.577.0",
     "react": "^19.2.7",
-    "react-dom": "^19.2.0",
+    "react-dom": "^19.2.7",
     "react-router-dom": "^7.13.1",
     "tailwindcss": "^4.2.1"
   },
@@ -40,5 +40,8 @@
     "esbuild@0.28.1": true,
     "sharp@0.34.5": true,
     "workerd@1.20260617.1": true
+  },
+  "overrides": {
+    "esbuild": "^0.28.1"
   }
 }
