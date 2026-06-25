@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && tsx ./generate-sitemap.ts",
+    "build": "tsc -b && vite build && tsx ./prerender.ts && tsx ./generate-sitemap.ts",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@react-router/node": "^7.18.0",
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
@@ -37,9 +38,12 @@
   "allowScripts": {
     "esbuild@0.28.1": true,
     "sharp@0.34.5": true,
-    "workerd@1.20260617.1": true
+    "workerd@1.20260617.1": true,
+    "puppeteer@1.20.0": true
   },
   "overrides": {
-    "esbuild": "^0.28.1"
+    "esbuild": "^0.28.1",
+    "braces": "^3.0.3",
+    "micromatch": "^4.0.8"
   }
 }

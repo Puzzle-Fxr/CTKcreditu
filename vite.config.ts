@@ -2,8 +2,11 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-// exported plugin array
-export const plugins: any[] = [react(), tailwindcss()]
+// Cleaned plugin array with zero third-party pre-render dependencies
+export const plugins: any[] = [
+  react(), 
+  tailwindcss()
+]
 
 // https://vite.dev/config/
 export default defineConfig(async () => {
