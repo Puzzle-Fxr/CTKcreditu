@@ -1,2 +1,6 @@
+https://*.pages.dev/.well-known/api-catalog
+  Content-Type: application/linkset+json; charset=utf-8
+  Cache-Control: public, max-age=3600
+
 https://*.pages.dev/*
   X-Robots-Tag: noindex, nofollow

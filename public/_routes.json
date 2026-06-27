@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "include": [
+    "/*"
+  ],
+  "exclude": [
+    "/.well-known/*",
+    "/assets/*",
+    "/images/*",
+    "/*.svg",
+    "/*.ico",
+    "/_headers.txt",
+    "/_redirects.txt",
+    "/sitemap.xml",
+    "/robots.txt"
+  ]
+}
