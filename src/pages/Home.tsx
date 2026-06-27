@@ -787,7 +787,7 @@ export default function Home() {
             <div className="flex items-center space-x-2">
               <img 
                 src="/cualogo.svg" 
-                alt="CUA Insured"
+                alt="CUA Approved"
                 className="h-8 opacity-60"
               />
             </div>
