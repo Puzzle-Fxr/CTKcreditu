@@ -20,6 +20,7 @@ export const ExecutiveCarousel: React.FC = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [activeExecutive, setActiveExecutive] = useState<number | null>(null);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
@@ -78,7 +79,7 @@ export const ExecutiveCarousel: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isDragging || isHovered) return;
+    if (isDragging || isHovered || activeExecutive !== null) return;
 
     const interval = setInterval(() => {
       if (carouselRef.current) {
@@ -94,7 +95,7 @@ export const ExecutiveCarousel: React.FC = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isDragging, isHovered]);
+  }, [isDragging, isHovered, activeExecutive]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!carouselRef.current) return;
@@ -126,7 +127,7 @@ export const ExecutiveCarousel: React.FC = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="absolute -top-16 right-0 flex items-center gap-3 z-10">
+      <div className="mb-4 flex justify-center items-center gap-6">
         <button
           onClick={() => scroll('left')}
           className="w-15 h-15 rounded-full border border-cream-100/20 bg-navy-900/40 text-cream-50 flex items-center justify-center hover:bg-gold-400 hover:text-navy-900 transition-colors duration-300"
@@ -158,7 +159,12 @@ export const ExecutiveCarousel: React.FC = () => {
         {executives.map((exec, i) => (
           <div
             key={i}
-            className="w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.333%-21.333px)] shrink-0 snap-start group rounded-2xl bg-navy-800/50 backdrop-blur-sm p-6 cursor-pointer hover:bg-navy-800/70 transition-colors duration-300"
+            onClick={() => setActiveExecutive(i)}
+            className={`w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.333%-21.333px)] shrink-0 snap-start group rounded-2xl border p-6 cursor-pointer transition-all duration-300 ${
+              activeExecutive === i
+                ? 'border-gold-400 bg-navy-800/80 shadow-[0_0_0_1px_rgba(244,199,95,0.4),0_20px_45px_rgba(0,0,0,0.25)] scale-[1.01]'
+                : 'border-transparent bg-navy-800/50 backdrop-blur-sm hover:bg-navy-800/70 hover:border-gold-400/40'
+            }`}
           >
             <div className="relative overflow-hidden rounded-2xl mb-4 pointer-events-none">
               <img
@@ -613,7 +619,7 @@ export default function Home() {
       {/* Leadership Section */}
       <section id="leadership" className="py-24 lg:py-32 bg-gradient-radial from-navy-800/50 to-transparent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center">
             <p className="text-gold-400 font-medium tracking-widest uppercase mb-4">Leadership</p>
             <h2 className="font-serif text-4xl sm:text-5xl font-bold text-cream-50 mb-6">
               Meet Our Executive Team
@@ -746,7 +752,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-cream-100/60 max-w-md mb-6">
-                Federally insured by the National Credit Union Administration.
+                Federally approved by the National Credit Union Administration.
               </p>
               <div className="flex space-x-4">
                 {[Facebook, Twitter, Linkedin].map((Icon, i) => (
