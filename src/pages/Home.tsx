@@ -38,13 +38,13 @@ export const ExecutiveCarousel: React.FC = () => {
       bio: 'Formal expertise in multiple financial domains.',
     },
     {
-      image: '/images/Charles.jpg',
+      image: '/images/executive-3.jpg',
       name: 'Mr Charles Owusu',
       title: 'Treasurer',
       bio: 'Years in financial management.',
     },
     {
-      image: '/images/executive-3.jpg',
+      image: '/images/Micheal.jpg',
       name: 'Mr. Michael Owusu',
       title: 'Secretary',
       bio: 'Passionate and dedicated leader.',
@@ -661,7 +661,7 @@ export default function Home() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-cream-50 mb-1">Main Office</h4>
-                      <p className="text-cream-100/70">14 Jawaharial Nehru Rd<br />Accra - Ghana<br />GPS: GL-061-6791</p>
+                      <p className="text-cream-100/70">30 Liberation Road<br />Accra - Ghana<br />GPS: GL-061-6791</p>
                     </div>
                   </div>
                   
