@@ -26,19 +26,19 @@ export const ExecutiveCarousel: React.FC = () => {
 
   const executives: Executive[] = [
     {
-      image: '/images/executive-1.jpg',
+      image: '/images/Nancy.jpg',
       name: 'Mrs Nancy Tomani',
       title: 'Board Chairperson',
       bio: 'Extensive experience in credit union governance and community leadership.',
     },
     {
-      image: '/images/executive-3.jpg',
+      image: '/images/Etse.jpg',
       name: 'Mr. Hipolaitus Etse Equagoo',
       title: 'Vice Chairperson',
       bio: 'Formal expertise in multiple financial domains.',
     },
     {
-      image: '/images/executive-3.jpg',
+      image: '/images/Charles.jpg',
       name: 'Mr Charles Owusu',
       title: 'Treasurer',
       bio: 'Years in financial management.',
@@ -189,11 +189,11 @@ export const ExecutiveCarousel: React.FC = () => {
 // Announcement Banner Component
 export const AnnouncementBanner: React.FC = () => {
   const announcements = [
-    "🎉 Welcome to Accra Christ The King Credit Union - Your Financial Home!",
+    "🎉 Welcome to Christ The King Credit Union!",
     "📢 We are Launching our New Website!",
-    "💰 Fast loan approval for members - Visit Us Today!",
+    "💰 Fast loan approval for members!",
     "💰 Competitive Rates - Visit Us Today!",
-    "🏆 Celebrating 40+ years of trusted service to our community!",
+    "🏆 40+ years of trusted service!",
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -315,7 +315,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-8">
               {['Home', 'About', 'Testimonials', 'Leadership', 'Location'].map((item) => (
                 <button
                   key={item}
@@ -334,7 +334,7 @@ export default function Home() {
             </div>
 
             <button
-              className="md:hidden text-cream-50 p-2"
+              className="lg:hidden text-cream-50 p-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -343,7 +343,7 @@ export default function Home() {
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden bg-navy-800/95 backdrop-blur-lg border-t border-gold-400/20">
+          <div className="lg:hidden bg-navy-800/95 backdrop-blur-lg border-t border-gold-400/20">
             <div className="px-4 py-6 space-y-4">
               {['Home', 'About', 'Testimonials', 'Leadership', 'Location'].map((item) => (
                 <button
