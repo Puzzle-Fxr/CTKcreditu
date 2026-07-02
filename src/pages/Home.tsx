@@ -255,6 +255,138 @@ export const AnnouncementBanner: React.FC = () => {
   );
 };
 
+// Milestone Carousel Component
+export const MilestoneCarousel: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlay, setIsAutoPlay] = useState(true);
+
+  const milestones = [
+    {
+      year: '1983',
+      event: 'Our Union was established',
+      image: '/images/milestone-1.jpg',
+      description: 'Founded on the principles of mutual cooperation'
+    },
+    {
+      year: '1998',
+      event: 'On October 14th, we were officially registered',
+      image: '/images/milestone-2.jpg',
+      description: 'Official recognition as a cooperative credit union'
+    },
+    {
+      year: '2024',
+      event: 'Credit Union Association (CUA) affiliation',
+      image: '/images/milestone-3.jpg',
+      description: 'Joining a network of credit unions nationwide'
+    },
+  ];
+
+  useEffect(() => {
+    if (!isAutoPlay) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % milestones.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlay, milestones.length]);
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+    setIsAutoPlay(false);
+    setTimeout(() => setIsAutoPlay(true), 3000);
+  };
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % milestones.length);
+    setIsAutoPlay(false);
+    setTimeout(() => setIsAutoPlay(true), 3000);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + milestones.length) % milestones.length);
+    setIsAutoPlay(false);
+    setTimeout(() => setIsAutoPlay(true), 3000);
+  };
+
+  return (
+    <div className="card-glass rounded-3xl overflow-hidden">
+      <div className="relative w-full h-96 group">
+        {/* Image Container */}
+        <div className="relative w-full h-full overflow-hidden">
+          {milestones.map((milestone, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+                index === currentIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <img
+                src={milestone.image}
+                alt={milestone.event}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/40 to-transparent" />
+            </div>
+          ))}
+        </div>
+
+        {/* Content Overlay */}
+        <div className="absolute inset-0 flex flex-col justify-end p-8 text-cream-50">
+          <div className="transform transition-all duration-500">
+            <span className="font-serif text-5xl font-bold text-gold-400 block mb-2">
+              {milestones[currentIndex].year}
+            </span>
+            <h3 className="font-serif text-2xl font-semibold mb-2">
+              {milestones[currentIndex].event}
+            </h3>
+            <p className="text-cream-100/80">
+              {milestones[currentIndex].description}
+            </p>
+          </div>
+        </div>
+
+        {/* Navigation Buttons */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-navy-900/60 hover:bg-gold-400 text-cream-50 hover:text-navy-900 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100"
+          aria-label="Previous milestone"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-navy-900/60 hover:bg-gold-400 text-cream-50 hover:text-navy-900 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100"
+          aria-label="Next milestone"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+      </div>
+
+      {/* Indicators */}
+      <div className="bg-navy-900/50 backdrop-blur-sm px-8 py-6 flex items-center justify-between">
+        <div className="flex gap-3">
+          {milestones.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex
+                  ? 'bg-gold-400 w-8'
+                  : 'bg-cream-100/30 w-2 hover:bg-cream-100/50'
+              }`}
+              aria-label={`Go to milestone ${index + 1}`}
+            />
+          ))}
+        </div>
+        <span className="text-cream-100/70 text-sm font-medium">
+          {currentIndex + 1} / {milestones.length}
+        </span>
+      </div>
+    </div>
+  );
+};
+
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -486,21 +618,7 @@ export default function Home() {
               </p>
             </div>
             
-            <div className="card-glass rounded-3xl p-8">
-              <h4 className="font-serif text-2xl font-semibold text-gold-400 mb-6">Our Milestones</h4>
-              <div className="space-y-6">
-                {[
-                  { year: '1983', event: 'Our Union was established' },
-                  { year: '1998', event: 'On October 14th, we were offially registered' },
-                  { year: '2024', event: 'Credit Union Associasion (CUA) affiliation' },
-                ].map((milestone, i) => (
-                  <div key={i} className="flex items-start space-x-4">
-                    <span className="font-serif text-lg font-bold text-gold-400 w-16">{milestone.year}</span>
-                    <p className="text-cream-100/80 pt-0.5">{milestone.event}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <MilestoneCarousel />
           </div>
         </div>
       </section>
