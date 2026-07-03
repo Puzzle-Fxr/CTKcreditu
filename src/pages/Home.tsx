@@ -425,6 +425,69 @@ export default function Home() {
     setIsMenuOpen(false);
   };
 
+  useEffect(() => {
+    const modelContext = (navigator as any).modelContext;
+    if (!modelContext?.provideContext) return;
+
+    const tools = [
+      {
+        name: 'scrollToSection',
+        description: 'Scroll the homepage to a specific section, such as services or location.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            section: {
+              type: 'string',
+              enum: ['home', 'about', 'services', 'testimonials', 'leadership', 'location'],
+            },
+          },
+          required: ['section'],
+          additionalProperties: false,
+        },
+        execute: async (input: { section: string }) => {
+          const section = input?.section;
+          if (typeof section !== 'string') {
+            return { status: 'error', message: 'section is required' };
+          }
+          scrollToSection(section);
+          return { status: 'success', section };
+        },
+      },
+      {
+        name: 'viewServices',
+        description: 'Scroll to the services section so agents can review available financial offerings.',
+        inputSchema: {
+          type: 'object',
+          properties: {},
+          additionalProperties: false,
+        },
+        execute: async () => {
+          scrollToSection('services');
+          return { status: 'success' };
+        },
+      },
+      {
+        name: 'contactCreditUnion',
+        description: 'Open the contact section so members can see phone, email, and location details.',
+        inputSchema: {
+          type: 'object',
+          properties: {},
+          additionalProperties: false,
+        },
+        execute: async () => {
+          scrollToSection('location');
+          return { status: 'success' };
+        },
+      },
+    ];
+
+    try {
+      modelContext.provideContext({ tools });
+    } catch (error) {
+      console.warn('WebMCP provideContext failed:', error);
+    }
+  }, []);
+
 
 {/* Main Home Component JSX */}
   return (

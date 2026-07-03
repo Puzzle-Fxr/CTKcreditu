@@ -1,0 +1,15 @@
+{
+  "serverInfo": {
+    "name": "CTK Credit Union MCP Server",
+    "version": "1.0.0"
+  },
+  "transport": {
+    "type": "https",
+    "endpoint": "https://www.accractkcu.co/.well-known/mcp/transport"
+  },
+  "capabilities": [
+    "mcp.protocol",
+    "mcp.context.read",
+    "mcp.context.write"
+  ]
+}

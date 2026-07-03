@@ -1,0 +1,12 @@
+{
+  "$schema": "https://agentskills.io/schemas/agent-skills-index-v0.2.0.json",
+  "skills": [
+    {
+      "name": "CTK Credit Union Agent Skill",
+      "type": "web-site",
+      "description": "Public skill description for the Christ the King Co-operative Credit Union website.",
+      "url": "https://www.accractkcu.co/.well-known/agent-skills/ctk-credit-union.json",
+      "sha256": "b50200f540651b9a385b8a0517a1bb8ddf64881270096f0fa2ca35cc36d10a3c"
+    }
+  ]
+}

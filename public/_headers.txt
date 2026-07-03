@@ -1,3 +1,6 @@
+https://*.pages.dev/
+  Link: </.well-known/api-catalog>; rel="api-catalog"
+
 https://*.pages.dev/.well-known/api-catalog
   Content-Type: application/linkset+json; charset=utf-8
   Cache-Control: public, max-age=3600
