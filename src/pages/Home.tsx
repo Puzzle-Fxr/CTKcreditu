@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
   Menu, X, Phone, Mail, MapPin, Clock, ChevronRight, ChevronLeft,
   Building2, Users, Shield, TrendingUp, Award, Heart,
-  Linkedin, Twitter, Facebook, BanknoteArrowUp, 
+  Linkedin, Facebook, BanknoteArrowUp, 
   BanknoteArrowDown, Handshake, HandCoins 
 } from 'lucide-react';
 
@@ -50,16 +50,16 @@ export const ExecutiveCarousel: React.FC = () => {
       bio: 'Passionate and dedicated leader.',
     },
     {
-      image: '/images/executive-1.jpg',
+      image: '/images/Clare.jpg',
       name: 'Mrs. Clare Naanibo',
       title: 'General Manager',
-      bio: 'Passionate about member service.',
+      bio: 'Bringing years of credit union management experience to the team.',
     },
     {
-      image: '/images/executive-3.jpg',
+      image: '/images/William.jpg',
       name: 'Mr. William Paul Ayitey',
       title: 'Marketing Personnel',
-      bio: 'Led digital transformation initiatives.',
+      bio: 'Leading digital transformation initiatives.',
     },
   ];
 
@@ -127,23 +127,6 @@ export const ExecutiveCarousel: React.FC = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="mb-4 flex justify-center items-center gap-6">
-        <button
-          onClick={() => scroll('left')}
-          className="w-15 h-15 rounded-full border border-cream-100/20 bg-navy-900/40 text-cream-50 flex items-center justify-center hover:bg-gold-400 hover:text-navy-900 transition-colors duration-300"
-          aria-label="Scroll left"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button
-          onClick={() => scroll('right')}
-          className="w-15 h-15 rounded-full border border-cream-100/20 bg-navy-900/40 text-cream-50 flex items-center justify-center hover:bg-gold-400 hover:text-navy-900 transition-colors duration-300"
-          aria-label="Scroll right"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      </div>
-
       <div
         ref={carouselRef}
         onMouseDown={handleMouseDown}
@@ -181,6 +164,23 @@ export const ExecutiveCarousel: React.FC = () => {
             <p className="text-cream-100/60 text-sm line-clamp-3">{exec.bio}</p>
           </div>
         ))}
+      </div>
+
+      <div className="mt-4 flex justify-center items-center gap-6">
+        <button
+          onClick={() => scroll('left')}
+          className="w-15 h-15 rounded-full border border-gold-400 bg-navy-900/40 text-cream-50 flex items-center justify-center hover:bg-gold-400 hover:text-navy-900 transition-colors duration-300"
+          aria-label="Scroll left"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={() => scroll('right')}
+          className="w-15 h-15 rounded-full border border-gold-400 bg-navy-900/40 text-cream-50 flex items-center justify-center hover:bg-gold-400 hover:text-navy-900 transition-colors duration-300"
+          aria-label="Scroll right"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
       </div>
     </div>
   );
@@ -262,22 +262,22 @@ export const MilestoneCarousel: React.FC = () => {
 
   const milestones = [
     {
-      year: '1983',
+      year: 'February 1983',
       event: 'Our Union was established',
-      image: '/images/milestone-1.jpg',
+      image: '/images/hero-bank.jpg',
       description: 'Founded on the principles of mutual cooperation'
     },
     {
-      year: '1998',
+      year: 'August 1983',
+      event: 'Credit Union Association (CUA) affiliation',
+      image: '/images/milestone.jpg',
+      description: 'Joining a network of credit unions nationwide'
+    },
+    {
+      year: 'October 1998',
       event: 'On October 14th, we were officially registered',
       image: '/images/milestone-2.jpg',
       description: 'Official recognition as a cooperative credit union'
-    },
-    {
-      year: '2024',
-      event: 'Credit Union Association (CUA) affiliation',
-      image: '/images/milestone-3.jpg',
-      description: 'Joining a network of credit unions nationwide'
     },
   ];
 
@@ -394,9 +394,9 @@ export default function Home() {
 
   const heroImages: string[] = [
     '/images/hero-bank.jpg',
+    '/images/milestone.jpg',
     '/images/hero-bank-2.jpg',
-    '/images/hero-bank-3.jpg',
-    '/images/hero-bank-4.jpg',
+    '/images/milestone-2.jpg',
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -575,7 +575,9 @@ export default function Home() {
             />
           ))}
         </div>
-        
+
+        <div className="absolute inset-0 bg-navy-600/50 z-[1] pointer-events-none" />
+
         <div className="absolute top-20 left-10 w-72 h-72 bg-gold-400/10 rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-gold-400/5 rounded-full blur-3xl" />
         
@@ -623,7 +625,7 @@ export default function Home() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mt-16 pt-16 border-t border-gold-400">
               {[
                 { value: '40+', label: 'Years of Service' },
-                { value: '₵1.5M', label: 'Assets Managed' },
+                { value: '₵11.5M', label: 'Assets Managed' },
                 { value: '100+', label: 'Members' },
                 { value: '4.8★', label: 'Member Rating' },
               ].map((stat, i) => (
@@ -936,15 +938,23 @@ export default function Home() {
                 Federally approved by the National Credit Union Administration.
               </p>
               <div className="flex space-x-4">
-                {[Facebook, Twitter, Linkedin].map((Icon, i) => (
-                  <a 
-                    key={i}
-                    href="#"
-                    className="w-10 h-10 rounded-full bg-navy-800 flex items-center justify-center hover:bg-gold-400/20 transition-colors"
-                  >
-                    <Icon className="w-5 h-5 text-cream-100/60" />
-                  </a>
-                ))}
+                {[Facebook, Linkedin].map((Icon, i) => {
+                  const href = i === 0
+                    ? 'https://web.facebook.com/pages/CHRIST%20THE%20KING%20CREDIT%20UNION/408728895940501/#'
+                    : '#';
+
+                  return (
+                    <a
+                      key={i}
+                      href={href}
+                      target={i === 0 ? '_blank' : undefined}
+                      rel={i === 0 ? 'noopener noreferrer' : undefined}
+                      className="w-10 h-10 rounded-full bg-navy-800 flex items-center justify-center hover:bg-gold-400/20 transition-colors"
+                    >
+                      <Icon className="w-5 h-5 text-cream-100/60" />
+                    </a>
+                  );
+                })}
               </div>
             </div>
 
