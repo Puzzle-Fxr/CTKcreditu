@@ -35,19 +35,19 @@ export const ExecutiveCarousel: React.FC = () => {
       image: '/images/Etse.jpg',
       name: 'Mr. Hipolaitus Etse Equagoo',
       title: 'Vice Chairperson',
-      bio: 'Formal expertise in multiple financial domains.',
+      bio: 'Dedicated to promoting financial literacy and member engagement.',
     },
     {
-      image: '/images/executive-3.jpg',
+      image: '/images/Charles.jpg',
       name: 'Mr Charles Owusu',
       title: 'Treasurer',
-      bio: 'Years in financial management.',
+      bio: 'Resourceful and strategic financial manager.',
     },
     {
       image: '/images/Micheal.jpg',
       name: 'Mr. Michael Owusu',
       title: 'Secretary',
-      bio: 'Passionate and dedicated leader.',
+      bio: 'Passionate about member engagement and organizational efficiency.',
     },
     {
       image: '/images/Clare.jpg',
