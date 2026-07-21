@@ -32,34 +32,46 @@ export const ExecutiveCarousel: React.FC = () => {
       bio: 'Extensive experience in credit union governance and community leadership.',
     },
     {
-      image: '/images/Etse.jpg',
+      image: '/images/hippolytus.jpg',
       name: 'Mr. Hipolaitus Etse Equagoo',
       title: 'Vice Chairperson',
       bio: 'Dedicated to promoting financial literacy and member engagement.',
     },
     {
-      image: '/images/Charles.jpg',
+      image: '/images/charles.jpg',
       name: 'Mr Charles Owusu',
       title: 'Treasurer',
       bio: 'Resourceful and strategic financial manager.',
     },
     {
-      image: '/images/Micheal.jpg',
+      image: '/images/micheal.jpg',
       name: 'Mr. Michael Owusu',
       title: 'Secretary',
       bio: 'Passionate about member engagement and organizational efficiency.',
     },
     {
-      image: '/images/Clare.jpg',
+      image: '/images/richard.jpg',
+      name: 'Mr. Richard Sadungu',
+      title: 'Loans Committee Chairman',
+      bio: 'Committed to responsible lending and member support.',
+    },
+    {
+      image: '/images/augustine.jpg',
+      name: 'Mr. Augustine N. Aneleoha',
+      title: 'Supervisory Committee Chairman',
+      bio: 'Ensuring transparency and accountability in all operations.',
+    },
+    {
+      image: '/images/francis.jpg',
+      name: 'Mr. Francis Sarpong Boakye',
+      title: 'Supervisory Committee Member',
+      bio: 'Bringing a wealth of experience in financial oversight and risk management.',
+    },
+    {
+      image: '/images/clare.jpg',
       name: 'Mrs. Clare Naanibo',
       title: 'General Manager',
       bio: 'Bringing years of credit union management experience to the team.',
-    },
-    {
-      image: '/images/William.jpg',
-      name: 'Mr. William Paul Ayitey',
-      title: 'Marketing Personnel',
-      bio: 'Leading digital transformation initiatives.',
     },
   ];
 
@@ -79,23 +91,16 @@ export const ExecutiveCarousel: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isDragging || isHovered || activeExecutive !== null) return;
+    if (!carouselRef.current) return;
 
-    const interval = setInterval(() => {
-      if (carouselRef.current) {
-        const { scrollLeft: currentScroll, scrollWidth, clientWidth } = carouselRef.current;
-        const isAtEnd = currentScroll + clientWidth >= scrollWidth - 10;
+    const resetCarousel = () => {
+      carouselRef.current?.scrollTo({ left: 0, behavior: 'auto' });
+      setActiveExecutive(null);
+    };
 
-        if (isAtEnd) {
-          carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          scroll('right');
-        }
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [isDragging, isHovered, activeExecutive]);
+    const frame = window.requestAnimationFrame(resetCarousel);
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!carouselRef.current) return;
